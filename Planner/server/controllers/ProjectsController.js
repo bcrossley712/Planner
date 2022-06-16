@@ -4,7 +4,7 @@ import BaseController from "../utils/BaseController";
 
 export class ProjectsController extends BaseController {
   constructor() {
-    super('api.projects')
+    super('api/projects')
     this.router
       .get('', this.getAll)
       .get('/:id', this.getById)
