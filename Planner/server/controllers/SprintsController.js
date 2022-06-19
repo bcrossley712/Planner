@@ -4,18 +4,17 @@ import BaseController from "../utils/BaseController";
 
 export class SprintsController extends BaseController {
   constructor() {
-    super('api/sprints');
+    super('api/projects/:projectId/sprints');
     this.router
-      .get('', this.getAll)
+      .get('', this.getProjectsSprints)
       .get('/:id', this.getById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
-      .put('/:id', this.update)
       .delete('/:id', this.delete);
   }
-  async getAll(req, res, next) {
+  async getProjectsSprints(req, res, next) {
     try {
-      const sprints = await sprintsService.getAll(req.query);
+      const sprints = await sprintsService.getProjectsSprints(req.params.projectId);
       return res.send(sprints);
     } catch (error) {
       next(error);
@@ -32,22 +31,19 @@ export class SprintsController extends BaseController {
   async create(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id;
+      req.body.projectId = req.params.projectId
       const sprint = await sprintsService.create(req.body);
       return res.send(sprint);
     } catch (error) {
       next(error);
     }
   }
-  async update(req, res, next) {
-    try {
-      throw new Error("Method not implemented.");
-    } catch (error) {
-      next(error);
-    }
-  }
   async delete(req, res, next) {
     try {
-      throw new Error("Method not implemented.");
+      const userId = req.userInfo.id
+      const sprintId = req.params.id
+      await sprintsService.delete(userId, sprintId)
+      return res.send('Sprint Deleted')
     } catch (error) {
       next(error);
     }
