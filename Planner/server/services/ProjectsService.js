@@ -18,17 +18,6 @@ class ProjectsService {
     await project.populate('creator', 'name picture')
     return project
   }
-  async update(update, id) {
-    const original = await this.getById(id)
-    if (original.creatorId.toString() != update.creatorId) {
-      throw new Forbidden('You cannot update this project')
-    }
-    original.name = update.name ? update.name : original.name
-    original.description = update.description ? update.description : original.description
-    await original.save()
-    await original.populate('creator', 'name picture')
-    return original
-  }
   async delete(userId, projectId) {
     const toDelete = await this.getById(projectId)
     if (toDelete.creatorId.toString() != userId) {

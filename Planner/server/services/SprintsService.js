@@ -20,6 +20,17 @@ class SprintsService {
     await sprint.populate('project')
     return sprint;
   }
+  async update(update, id) {
+    const original = await this.getById(id)
+    if (original.creatorId.toString() != update.creatorId) {
+      throw new Forbidden('You cannot update this sprint')
+    }
+    original.name = update.name ? update.name : original.name
+    original.description = update.description ? update.description : original.description
+    await original.save()
+    await original.populate('creator', 'name picture')
+    return original
+  }
   async delete(userId, sprintId) {
     const toDelete = await this.getById(sprintId)
     const project = await projectsService.getById(toDelete.projectId)

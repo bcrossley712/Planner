@@ -40,9 +40,11 @@ export class TasksController extends BaseController {
   }
   async update(req, res, next) {
     try {
-      throw new Error("Method not implemented.");
+      req.body.creatorId = req.userInfo.id
+      const update = await tasksService.update(req.body, req.params.id)
+      return res.send(update)
     } catch (error) {
-      next(error);
+      next(error)
     }
   }
   async delete(req, res, next) {

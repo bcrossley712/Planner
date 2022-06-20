@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext";
-import { BadRequest } from "../utils/Errors";
+import { BadRequest, Forbidden } from "../utils/Errors";
 
 class TasksService {
   async getAll(query = {}) {
@@ -18,6 +18,16 @@ class TasksService {
     await task.populate('creator', 'name picture');
     return task;
   }
-
+  async update(update, id) {
+    const original = await this.getById(id)
+    if (original.creatorId.toString() != update.creatorId) {
+      throw new Forbidden('You cannot update this task')
+    }
+    original.name = update.name ? update.name : original.name
+    original.description = update.description ? update.description : original.description
+    await original.save()
+    await original.populate('creator', 'name picture')
+    return original
+  }
 }
 export const tasksService = new TasksService();
