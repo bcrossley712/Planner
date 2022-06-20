@@ -26,7 +26,7 @@ class SprintsService {
       throw new Forbidden('You cannot update this sprint')
     }
     original.name = update.name ? update.name : original.name
-    original.description = update.description ? update.description : original.description
+    original.isComplete = update.isComplete != null ? update.isComplete : original.isComplete
     await original.save()
     await original.populate('creator', 'name picture')
     return original

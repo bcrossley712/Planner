@@ -10,7 +10,6 @@ export class NotesController extends BaseController {
       .get('/:id', this.getById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
-      .put('/:id', this.update)
       .delete('/:id', this.delete);
   }
   async getAll(req, res, next) {
@@ -34,13 +33,6 @@ export class NotesController extends BaseController {
       req.body.creatorId = req.userInfo.id;
       const note = await notesService.create(req.body);
       return res.send(note);
-    } catch (error) {
-      next(error);
-    }
-  }
-  async update(req, res, next) {
-    try {
-      throw new Error("Method not implemented.");
     } catch (error) {
       next(error);
     }
