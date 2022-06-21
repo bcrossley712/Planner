@@ -13,6 +13,7 @@
 
 main {
   flex-grow: 1;
+  font-family: 'Roboto', sans-serif;
 }
 
 a {
@@ -26,6 +27,7 @@ select {
     &:valid {
       border: 1px solid $success;
     }
+
     &:invalid {
       border: 1px solid $danger;
     }
