@@ -1,10 +1,33 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo" class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-10 offset-1 bg-white rounded elevation-3 shadow">
+        <div class="row">
+          <div class="col-12 d-flex justify-content-between align-items-center">
+            <div class="d-flex flex-column">
+              <h-5 class="text-primary fw-bold">Projects</h-5>
+              <span>a list of projects for username</span>
+            </div>
+            <div>
+              <button class="btn btn-outline-primary">Create Project</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4 border-grey border-bottom text-primary">Name</div>
+          <div class="col-4 border-grey border-bottom text-primary">
+            Members
+          </div>
+          <div class="col-4 border-grey border-bottom text-primary">
+            Started
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col-4"></div>
+          <div class="col-4"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -16,15 +39,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home{
+.home {
   display: grid;
   height: 80vh;
   place-content: center;
   text-align: center;
   user-select: none;
-  .home-card{
+  .home-card {
     width: 50vw;
-    > img{
+    > img {
       height: 200px;
       max-width: 200px;
       width: 100%;
